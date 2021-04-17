@@ -113,6 +113,7 @@ form input:focus {
     margin: 0 auto;
     border-radius: 5px;
     box-shadow: 0 1rem 3rem -0.3rem;
+    margin-bottom: 1rem;
 }
 
 #todoListInfo {
@@ -123,4 +124,25 @@ form input:focus {
     font-size: .7rem;
     padding: 0 1rem;
     height: 2.5rem;
+}
+
+.todoListItem {
+    display: grid;
+    grid-template-columns: 1fr 6fr 1fr;
+    border-bottom: 1px solid var(--dThemeVDarkGrayBlue1);
+    height: 2.75rem;
+    padding: 0 0.35rem;
+    font-size: .7rem;
+    color: var(--dThemeGrayBlue);
+}
+
+.listItemCross {
+    height: 1rem;
+    width: 1rem;
+    margin: auto .75rem;
+}
+
+.listItemText {
+    height: fit-content;
+    margin: auto 0;
 }
