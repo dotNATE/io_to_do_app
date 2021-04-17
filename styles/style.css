@@ -104,3 +104,7 @@ form input::placeholder {
 form input:focus {
     outline: none;
 }
+
+#todoList {
+    background-color: var(--dThemeVDarkDesatBlue);
+}
