@@ -27,11 +27,22 @@
     --dThemeVDarkGrayBlue2: hsl(237, 14%, 26%);
 }
 
-.attribution {
-    font-size: 11px;
-    text-align: center;
+body {
+    padding: 1rem;
 }
 
-.attribution a {
-    color: hsl(228, 45%, 44%);
+.dThemeBg {
+    background-color: var(--dThemeVDarkGrayBlue2);
+    background-image: url("../images/bg-mobile-dark.jpg");
+    background-repeat: no-repeat;
+}
+
+.lThemeBg {
+    background-color: var(--lThemeVLightGray);
+    background-image: url("../images/bg-mobile-light.jpg");
+    background-repeat: no-repeat;
+}
+
+header {
+
 }
