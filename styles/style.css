@@ -3,8 +3,6 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 18px;
 }
 
 :root {
@@ -14,8 +12,8 @@
 
     --lThemeVLightGray: hsl(0, 0%, 98%);
     --lThemeVLightGrayBlue: hsl(236, 33%, 92%);
-    --lThemelightGrayBlue: hsl(233, 11%, 84%);
-    --lThemedarkGrayBlue: hsl(236, 9%, 61%);
+    --lThemeLightGrayBlue: hsl(233, 11%, 84%);
+    --lThemeDarkGrayBlue: hsl(236, 9%, 61%);
     --lThemeVDarkGrayBlue: hsl(235, 19%, 35%);
 
     --dThemeVDarkBlue: hsl(235, 21%, 11%);
@@ -28,7 +26,8 @@
 }
 
 body {
-    padding: 1rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 18px;
 }
 
 .dThemeBg {
@@ -44,5 +43,41 @@ body {
 }
 
 header {
+    display: flex;
+    justify-content: space-between;
+    width: 85%;
+    margin: 0 auto;
+}
 
+header span {
+    letter-spacing: .5rem;
+    font-weight: normal;
+    font-size: 2rem;
+    color: white;
+    padding-top: 8px;
+    margin: 2rem 0;
+}
+
+#toggleThemeButton {
+    height: 30px;
+    margin: auto 0;
+}
+
+form {
+    width: 85%;
+    margin: 0 auto;
+    display: flex;
+}
+
+.checkbox {
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: white;
+    border: 1px solid white;
+    border-radius: 50%;
+    margin: .5rem;
+}
+
+form input {
+    height: 2.5rem;
 }
