@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
   <link rel="stylesheet" href="styles/normalize.css">
+  <link rel="stylesheet" href="styles/dark_theme.css">
   <link rel="stylesheet" href="styles/style.css">
   <title>Frontend Mentor | Todo app</title>
 </head>
-<body class="dThemeBg">
+<body>
   <main>
     <header>
       <span>TODO</span>
@@ -19,12 +20,12 @@
     </form>
     <section class="container" id="todoList">
       <div id="todoListItems">
-        <div class="todoListItem">
-          <div class="checkbox"></div><p class="listItemText">todo list item</p>
+        <div class="todoListItem checked">
+          <div class="checkbox checked"></div><p class="listItemText checked">todo list item</p>
           <img class="listItemCross" src="images/icon-cross.svg" alt="Delete list item"/>
         </div>
         <div class="todoListItem">
-          <div class="checkbox checked"></div><p class="listItemText">todo list item</p>
+          <div class="checkbox"></div><p class="listItemText">todo list item</p>
           <img class="listItemCross" src="images/icon-cross.svg" alt="Delete list item"/>
         </div>
       </div>

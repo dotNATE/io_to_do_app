@@ -12,31 +12,18 @@ body {
     border: 1px solid var(--dThemeVDarkGrayBlue2);
 }
 
-form input {
+form input,
+.todoListItem {
     color: var(--dThemeGrayBlue);
 }
 
-form input::placeholder {
-    color: var(--dThemeDarkGrayBlue);
-}
-
-#todoListInfo {
+form input::placeholder,
+#todoListInfo,
+.filterText,
+footer p {
     color: var(--dThemeDarkGrayBlue);
 }
 
 .todoListItem {
-    color: var(--dThemeGrayBlue);
     border-bottom: 1px solid var(--dThemeVDarkGrayBlue1);
-}
-
-.filterText {
-    color: var(--dThemeDarkGrayBlue);
-}
-
-.activeFilter {
-    color: var(--brightBlue);
-}
-
-footer p {
-    color: var(--dThemeDarkGrayBlue);
 }
