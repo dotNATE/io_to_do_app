@@ -1,7 +1,6 @@
 body {
     background-color: var(--dThemeVDarkBlue);
     background-image: url("../images/bg-mobile-dark.jpg");
-    background-repeat: no-repeat;
 }
 
 :root {
@@ -12,6 +11,10 @@ body {
     --dThemeDarkGrayBlue: hsl(234, 11%, 52%);
     --dThemeVDarkGrayBlue1: hsl(233, 14%, 35%);
     --dThemeVDarkGrayBlue2: hsl(237, 14%, 26%);
+}
+
+#toggleThemeButton {
+    content: url("../images/icon-sun.svg")
 }
 
 .container {
@@ -38,6 +41,16 @@ footer p {
     border-bottom: 1px solid var(--dThemeVDarkGrayBlue1);
 }
 
+.todoListItem.checked {
+    color: var(--dThemeDarkGrayBlue);
+}
+
 .listItemText.checked {
     color: var(--dThemeVDarkGrayBlue1);
+}
+
+@media only screen and (min-width: 850px) {
+    body {
+        background-image: url("../images/bg-desktop-dark.jpg")
+    }
 }
