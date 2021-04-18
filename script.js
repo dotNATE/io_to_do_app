@@ -26,6 +26,14 @@ class TodoList {
                 this.refreshToDoList()
             })
         })
+
+        this.checkboxes.forEach((el) => {
+            el.addEventListener('click', (e) => {
+                let index = e.target.parentElement.dataset.id
+                this.toggleChecked(index)
+                this.refreshToDoList()
+            })
+        })
     }
 
     deleteTodo(index) {
@@ -36,12 +44,26 @@ class TodoList {
             }
         })
     }
+
+    toggleChecked(index) {
+        this.items.forEach((todo) => {
+            if (todo.id == index) {
+                let id = this.items.indexOf(todo)
+                if (!this.items[id].checked) {
+                    this.items[id].checked = true
+                } else {
+                    this.items[id].checked = false
+                }
+            }
+        })
+    }
 }
 
 class TodoItem {
     constructor(todo) {
         this.id = TodoItem.generateId()
         this.todoString = todo
+        this.checked = false
     }
 
     static generateId() {
@@ -51,13 +73,29 @@ class TodoItem {
     }
 
     generateToDoHTML() {
-        let output = '<div class="todoListItem" data-id="'
+        let output = '<div class="todoListItem'
+        if (this.checked) {
+            output += ' checked'
+        }
+        output += '" data-id="'
         output += this.id
         output += '">'
-        output += '<div class="checkbox">'
-        output += '</div><p class="listItemText">'
+        output += '<div class="checkbox'
+        if (this.checked) {
+            output += ' checked'
+        }
+        output += '">'
+        output += '</div><p class="listItemText'
+        if (this.checked) {
+            output += ' checked'
+        }
+        output += '">'
         output += this.todoString
-        output += '</p><img class="listItemCross" src="images/icon-cross.svg" alt="Delete list item"/>'
+        output += '</p><img class="listItemCross'
+        if (this.checked) {
+            output += ' checked'
+        }
+        output +='" src="images/icon-cross.svg" alt="Delete list item"/>'
         output += '</div>'
         return(output)
     }
