@@ -64,16 +64,19 @@ header span {
     margin: auto 0;
 }
 
-form {
-    width: 85%;
-    height: 2.5rem;
-    margin: 0 auto;
-    display: flex;
+.container {
     background-color: var(--dThemeVDarkDesatBlue);
+    width: 85%;
     border-radius: 5px;
-    padding-left: .35rem;
-    margin-bottom: 1rem;
     box-shadow: 0 1rem 3rem -0.3rem;
+    margin: 0 auto 1rem;
+    min-height: 2.5rem;
+}
+
+form {
+    height: 2.5rem;
+    display: flex;
+    padding-left: .35rem;
 }
 
 .checkbox {
@@ -107,15 +110,6 @@ form input:focus {
     outline: none;
 }
 
-#todoList {
-    background-color: var(--dThemeVDarkDesatBlue);
-    width: 85%;
-    margin: 0 auto;
-    border-radius: 5px;
-    box-shadow: 0 1rem 3rem -0.3rem;
-    margin-bottom: 1rem;
-}
-
 #todoListInfo {
     display: flex;
     justify-content: space-between;
@@ -131,7 +125,7 @@ form input:focus {
     grid-template-columns: 1fr 6fr 1fr;
     border-bottom: 1px solid var(--dThemeVDarkGrayBlue1);
     height: 2.75rem;
-    padding: 0 0.35rem;
+    padding: .8rem 0.35rem;
     font-size: .7rem;
     color: var(--dThemeGrayBlue);
 }
@@ -145,4 +139,32 @@ form input:focus {
 .listItemText {
     height: fit-content;
     margin: auto 0;
+    padding-top: 2px;
+}
+
+#listFilter {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 3rem;
+    font-size: .9rem;
+}
+
+.filterText {
+    font-weight: bold;
+    color: var(--dThemeDarkGrayBlue);
+}
+
+.activeFilter {
+    color: var(--brightBlue);
+}
+
+footer {
+    margin: 2.5rem 0 0;
+}
+
+footer p {
+    color: var(--dThemeDarkGrayBlue);
+    font-size: .7rem;
+    text-align: center;
 }

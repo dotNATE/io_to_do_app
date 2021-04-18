@@ -14,31 +14,33 @@
       <span>TODO</span>
       <img id="toggleThemeButton" src="images/icon-sun.svg" alt="Toggle Light and Dark Themes"/>
     </header>
-    <form>
+    <form class="container">
       <div class="checkbox"></div><input type="text" placeholder="Create a new todo...">
     </form>
-    <section id="todoList">
+    <section class="container" id="todoList">
       <div id="todoListItems">
-
         <div class="todoListItem">
           <div class="checkbox"></div><p class="listItemText">todo list item</p>
           <img class="listItemCross" src="images/icon-cross.svg" alt="Delete list item"/>
         </div>
         <div class="todoListItem">
-          <div class="checkbox"></div><p class="listItemText">todo list item</p>
+          <div class="checkbox checked"></div><p class="listItemText">todo list item</p>
           <img class="listItemCross" src="images/icon-cross.svg" alt="Delete list item"/>
         </div>
-        <div class="todoListItem">
-          <div class="checkbox"></div><p class="listItemText">todo list item</p>
-          <img class="listItemCross" src="images/icon-cross.svg" alt="Delete list item"/>
-        </div>
-
       </div>
       <div id="todoListInfo">
         <p id="listItemCount">5 items left</p>
         <p id="clearCompleted">Clear Completed</p>
       </div>
     </section>
+    <section class="container" id="listFilter">
+      <p class="filterText activeFilter" id="filterAll">All</p>
+      <p class="filterText" id="filterActive">Active</p>
+      <p class="filterText" id="filterCompleted">Completed</p>
+    </section>
+    <footer>
+      <p>Drag and drop to reorder list</p>
+    </footer>
   </main>
 </body>
 </html>
