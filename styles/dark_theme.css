@@ -4,6 +4,16 @@ body {
     background-repeat: no-repeat;
 }
 
+:root {
+    --dThemeVDarkBlue: hsl(235, 21%, 11%);
+    --dThemeVDarkDesatBlue: hsl(235, 24%, 19%);
+    --dThemeGrayBlue: hsl(234, 39%, 85%);
+    --dThemeLightGrayBlue/*(hover)*/: hsl(236, 33%, 92%);
+    --dThemeDarkGrayBlue: hsl(234, 11%, 52%);
+    --dThemeVDarkGrayBlue1: hsl(233, 14%, 35%);
+    --dThemeVDarkGrayBlue2: hsl(237, 14%, 26%);
+}
+
 .container {
     background-color: var(--dThemeVDarkDesatBlue);
 }
@@ -26,4 +36,8 @@ footer p {
 
 .todoListItem {
     border-bottom: 1px solid var(--dThemeVDarkGrayBlue1);
+}
+
+.listItemText.checked {
+    color: var(--dThemeVDarkGrayBlue1);
 }

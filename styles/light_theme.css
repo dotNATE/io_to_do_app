@@ -1,5 +1,41 @@
 body {
-    background-color: var(--lThemeVLightGray);
+    background-color: var(--lThemeVLightGrayBlue);
     background-image: url("../images/bg-mobile-light.jpg");
     background-repeat: no-repeat;
+}
+
+:root {
+    --lThemeVLightGray: hsl(0, 0%, 98%);
+    --lThemeVLightGrayBlue: hsl(236, 33%, 92%);
+    --lThemeLightGrayBlue: hsl(233, 11%, 84%);
+    --lThemeDarkGrayBlue: hsl(236, 9%, 61%);
+    --lThemeVDarkGrayBlue: hsl(235, 19%, 35%);
+}
+
+.container {
+    background-color: var(--lThemeVLightGray);
+}
+
+.checkbox {
+    border: 1px solid var(--lThemeLightGrayBlue);
+}
+
+form input,
+.todoListItem {
+    color: var(--lThemeVDarkGrayBlue);
+}
+
+form input::placeholder,
+#todoListInfo,
+.filterText,
+footer p {
+    color: var(--lThemeDarkGrayBlue);
+}
+
+.todoListItem {
+    border-bottom: 1px solid var(--lThemeLightGrayBlue);
+}
+
+.listItemText.checked {
+    color: var(--lThemeLightGrayBlue);
 }

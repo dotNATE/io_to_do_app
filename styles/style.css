@@ -10,20 +10,6 @@
     --brightBlue: hsl(220, 98%, 61%);
     --checkBg1: hsl(192, 100%, 67%);
     --checkBg2: hsl(280, 87%, 65%);
-
-    --lThemeVLightGray: hsl(0, 0%, 98%);
-    --lThemeVLightGrayBlue: hsl(236, 33%, 92%);
-    --lThemeLightGrayBlue: hsl(233, 11%, 84%);
-    --lThemeDarkGrayBlue: hsl(236, 9%, 61%);
-    --lThemeVDarkGrayBlue: hsl(235, 19%, 35%);
-
-    --dThemeVDarkBlue: hsl(235, 21%, 11%);
-    --dThemeVDarkDesatBlue: hsl(235, 24%, 19%);
-    --dThemeGrayBlue: hsl(234, 39%, 85%);
-    --dThemeLightGrayBlue/*(hover)*/: hsl(236, 33%, 92%);
-    --dThemeDarkGrayBlue: hsl(234, 11%, 52%);
-    --dThemeVDarkGrayBlue1: hsl(233, 14%, 35%);
-    --dThemeVDarkGrayBlue2: hsl(237, 14%, 26%);
 }
 
 body {
@@ -55,7 +41,7 @@ header span {
 .container {
     width: 85%;
     border-radius: 5px;
-    box-shadow: 0 1rem 3rem -0.3rem;
+    box-shadow: 0 1rem 3rem -1em;
     margin: 0 auto 1rem;
     min-height: 2.5rem;
 }
@@ -123,10 +109,6 @@ form input:focus {
     height: fit-content;
     margin: auto 0;
     padding-top: 2px;
-}
-
-.listItemText.checked {
-    color: var(--dThemeVDarkGrayBlue1);
 }
 
 #listFilter {
