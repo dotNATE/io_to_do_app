@@ -1,3 +1,5 @@
+let themeToggleButton = document.querySelector('#toggleThemeButton')
+
 class TodoList {
     constructor() {
         this.items = []
@@ -61,6 +63,13 @@ class TodoItem {
     }
 }
 
+function toggleTheme() {
+    let themeStyleSheet = document.querySelectorAll('link')[2]
+    if (themeStyleSheet.href.includes('dark')) {
+        themeStyleSheet.href = 'http://localhost:1234/todo-app-main/styles/light_theme.css'
+    } else themeStyleSheet.href = 'http://localhost:1234/todo-app-main/styles/dark_theme.css'
+}
+
 let todoList = new TodoList()
 
 todoList.form.addEventListener('submit', (e) => {
@@ -69,3 +78,5 @@ todoList.form.addEventListener('submit', (e) => {
     todoList.input.value = ''
     todoList.refreshToDoList()
 })
+
+themeToggleButton.addEventListener('click', toggleTheme)
