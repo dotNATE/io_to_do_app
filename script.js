@@ -1,4 +1,5 @@
 let themeToggleButton = document.querySelector('#toggleThemeButton')
+let clearButton = document.querySelector('#clearCompleted')
 
 class TodoList {
     constructor() {
@@ -121,3 +122,8 @@ todoList.form.addEventListener('submit', (e) => {
 })
 
 themeToggleButton.addEventListener('click', toggleTheme)
+
+clearButton.addEventListener('click', () => {
+    todoList.items = todoList.items.filter(el => !el.checked === true)
+    todoList.refreshToDoList()
+})
