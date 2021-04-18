@@ -8,6 +8,7 @@ class TodoList {
         this.input = document.querySelector('form input')
         this.crosses = document.querySelectorAll('.listItemCross')
         this.checkboxes = document.querySelectorAll('.checkbox')
+        this.counter = document.querySelector('#listItemCount')
     }
 
     refreshToDoList() {
@@ -34,6 +35,8 @@ class TodoList {
                 this.refreshToDoList()
             })
         })
+
+        this.counter.textContent = this.items.length + ' item/s left'
     }
 
     deleteTodo(index) {
