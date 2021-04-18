@@ -49,6 +49,11 @@ footer p {
     color: var(--dThemeVDarkGrayBlue1);
 }
 
+.filterText:hover,
+#clearCompleted:hover {
+    color: var(--dThemeLightGrayBlue);
+}
+
 @media only screen and (min-width: 850px) {
     body {
         background-image: url("../images/bg-desktop-dark.jpg")

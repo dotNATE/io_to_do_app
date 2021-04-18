@@ -110,6 +110,7 @@ form input:focus {
 
 .listItemText {
     height: fit-content;
+    width: fit-content;
     margin: auto 0;
     padding-top: 2px;
 }
@@ -126,7 +127,8 @@ form input:focus {
     font-weight: bold;
 }
 
-.activeFilter {
+.activeFilter,
+.filterText.activeFilter:hover {
     color: var(--brightBlue);
 }
 
@@ -137,6 +139,14 @@ footer {
 footer p {
     font-size: .7rem;
     text-align: center;
+}
+
+.checkbox:hover,
+.listItemText:hover,
+.listItemCross:hover,
+.filterText:hover,
+#clearCompleted:hover {
+    cursor: pointer;
 }
 
 @media only screen and (min-width: 650px) {
