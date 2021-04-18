@@ -31,18 +31,6 @@ body {
     font-size: 18px;
 }
 
-.dThemeBg {
-    background-color: var(--dThemeVDarkBlue);
-    background-image: url("../images/bg-mobile-dark.jpg");
-    background-repeat: no-repeat;
-}
-
-.lThemeBg {
-    background-color: var(--lThemeVLightGray);
-    background-image: url("../images/bg-mobile-light.jpg");
-    background-repeat: no-repeat;
-}
-
 header {
     display: flex;
     justify-content: space-between;
@@ -65,7 +53,6 @@ header span {
 }
 
 .container {
-    background-color: var(--dThemeVDarkDesatBlue);
     width: 85%;
     border-radius: 5px;
     box-shadow: 0 1rem 3rem -0.3rem;
@@ -83,13 +70,12 @@ form {
     height: 1.15rem;
     width: 1.15rem;
     background-color: transparent;
-    border: 1px solid var(--dThemeVDarkGrayBlue2);
     border-radius: 50%;
     margin: auto .75rem;
     padding: .25rem;
 }
 
-.checked {
+.checkbox.checked {
     background: linear-gradient(135deg, var(--checkBg1), var(--checkBg2));
     content: url(../images/icon-check.svg);
 }
@@ -98,12 +84,7 @@ form input {
     height: 2.5rem;
     background-color: transparent;
     border: none;
-    color: var(--dThemeGrayBlue);
     font-size: .7rem;
-}
-
-form input::placeholder {
-    color: var(--dThemeDarkGrayBlue);
 }
 
 form input:focus {
@@ -114,7 +95,6 @@ form input:focus {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--dThemeDarkGrayBlue);
     font-size: .7rem;
     padding: 0 1rem;
     height: 2.5rem;
@@ -123,11 +103,14 @@ form input:focus {
 .todoListItem {
     display: grid;
     grid-template-columns: 1fr 6fr 1fr;
-    border-bottom: 1px solid var(--dThemeVDarkGrayBlue1);
     height: 2.75rem;
     padding: .8rem 0.35rem;
     font-size: .7rem;
-    color: var(--dThemeGrayBlue);
+}
+
+.todoListItem.checked {
+    text-decoration: line-through;
+    color: var(--dThemeDarkGrayBlue);
 }
 
 .listItemCross {
@@ -142,6 +125,10 @@ form input:focus {
     padding-top: 2px;
 }
 
+.listItemText.checked {
+    color: var(--dThemeVDarkGrayBlue1);
+}
+
 #listFilter {
     display: flex;
     justify-content: space-around;
@@ -152,11 +139,6 @@ form input:focus {
 
 .filterText {
     font-weight: bold;
-    color: var(--dThemeDarkGrayBlue);
-}
-
-.activeFilter {
-    color: var(--brightBlue);
 }
 
 footer {
@@ -164,7 +146,6 @@ footer {
 }
 
 footer p {
-    color: var(--dThemeDarkGrayBlue);
     font-size: .7rem;
     text-align: center;
 }

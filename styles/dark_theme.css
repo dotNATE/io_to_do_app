@@ -1,0 +1,42 @@
+body {
+    background-color: var(--dThemeVDarkBlue);
+    background-image: url("../images/bg-mobile-dark.jpg");
+    background-repeat: no-repeat;
+}
+
+.container {
+    background-color: var(--dThemeVDarkDesatBlue);
+}
+
+.checkbox {
+    border: 1px solid var(--dThemeVDarkGrayBlue2);
+}
+
+form input {
+    color: var(--dThemeGrayBlue);
+}
+
+form input::placeholder {
+    color: var(--dThemeDarkGrayBlue);
+}
+
+#todoListInfo {
+    color: var(--dThemeDarkGrayBlue);
+}
+
+.todoListItem {
+    color: var(--dThemeGrayBlue);
+    border-bottom: 1px solid var(--dThemeVDarkGrayBlue1);
+}
+
+.filterText {
+    color: var(--dThemeDarkGrayBlue);
+}
+
+.activeFilter {
+    color: var(--brightBlue);
+}
+
+footer p {
+    color: var(--dThemeDarkGrayBlue);
+}

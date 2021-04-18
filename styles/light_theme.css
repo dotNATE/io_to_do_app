@@ -1,0 +1,5 @@
+body {
+    background-color: var(--lThemeVLightGray);
+    background-image: url("../images/bg-mobile-light.jpg");
+    background-repeat: no-repeat;
+}
