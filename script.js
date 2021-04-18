@@ -1,5 +1,8 @@
 let themeToggleButton = document.querySelector('#toggleThemeButton')
 let clearButton = document.querySelector('#clearCompleted')
+let allFilterButton = document.querySelector('#filterAll')
+let activeFilterButton = document.querySelector('#filterActive')
+let completedFilterButton = document.querySelector('#filterCompleted')
 
 class TodoList {
     constructor() {
@@ -12,12 +15,14 @@ class TodoList {
         this.counter = document.querySelector('#listItemCount')
     }
 
-    refreshToDoList() {
+    displayAllItems() {
         this.container.innerHTML = ''
         this.items.forEach((todo) => {
             this.container.innerHTML += todo.generateToDoHTML()
         })
+    }
 
+    refreshToDoList() {
         this.crosses = document.querySelectorAll('.listItemCross')
         this.checkboxes = document.querySelectorAll('.checkbox')
 
@@ -25,6 +30,7 @@ class TodoList {
             el.addEventListener('click', (e) => {
                 let index = e.target.parentElement.dataset.id
                 this.deleteTodo(index)
+                this.displayAllItems()
                 this.refreshToDoList()
             })
         })
@@ -33,6 +39,7 @@ class TodoList {
             el.addEventListener('click', (e) => {
                 let index = e.target.parentElement.dataset.id
                 this.toggleChecked(index)
+                this.displayAllItems()
                 this.refreshToDoList()
             })
         })
@@ -53,12 +60,24 @@ class TodoList {
         this.items.forEach((todo) => {
             if (todo.id == index) {
                 let id = this.items.indexOf(todo)
-                if (!this.items[id].checked) {
-                    this.items[id].checked = true
-                } else {
-                    this.items[id].checked = false
-                }
+                this.items[id].checked = !this.items[id].checked
             }
+        })
+    }
+
+    displayActiveItems() {
+        this.container.innerHTML = ''
+        let items = this.items.filter(todo => !todo.checked)
+        items.forEach((todo) => {
+            this.container.innerHTML += todo.generateToDoHTML()
+        })
+    }
+
+    displayCompletedItems() {
+        this.container.innerHTML = ''
+        let items = this.items.filter(todo => todo.checked)
+        items.forEach((todo) => {
+            this.container.innerHTML += todo.generateToDoHTML()
         })
     }
 }
@@ -118,6 +137,7 @@ todoList.form.addEventListener('submit', (e) => {
     e.preventDefault()
     todoList.items.push(new TodoItem(todoList.input.value))
     todoList.input.value = ''
+    todoList.container.innerHTML += todoList.items[todoList.items.length - 1].generateToDoHTML()
     todoList.refreshToDoList()
 })
 
@@ -125,5 +145,30 @@ themeToggleButton.addEventListener('click', toggleTheme)
 
 clearButton.addEventListener('click', () => {
     todoList.items = todoList.items.filter(el => !el.checked === true)
+    todoList.displayAllItems()
+    todoList.refreshToDoList()
+})
+
+allFilterButton.addEventListener('click', () => {
+    allFilterButton.classList.add('activeFilter')
+    activeFilterButton.classList.remove('activeFilter')
+    completedFilterButton.classList.remove('activeFilter')
+    todoList.displayAllItems()
+    todoList.refreshToDoList()
+})
+
+activeFilterButton.addEventListener('click', () => {
+    allFilterButton.classList.remove('activeFilter')
+    activeFilterButton.classList.add('activeFilter')
+    completedFilterButton.classList.remove('activeFilter')
+    todoList.displayActiveItems()
+    todoList.refreshToDoList()
+})
+
+completedFilterButton.addEventListener('click', () => {
+    allFilterButton.classList.remove('activeFilter')
+    activeFilterButton.classList.remove('activeFilter')
+    completedFilterButton.classList.add('activeFilter')
+    todoList.displayCompletedItems()
     todoList.refreshToDoList()
 })
