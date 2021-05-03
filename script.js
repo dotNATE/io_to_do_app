@@ -1,127 +1,102 @@
+let form = document.querySelector('form')
+let todoListDisplay = document.querySelector('#todoListItems')
 let themeToggleButton = document.querySelector('#toggleThemeButton')
-let clearButton = document.querySelector('#clearCompleted')
-let allFilterButton = document.querySelector('#filterAll')
-let activeFilterButton = document.querySelector('#filterActive')
-let completedFilterButton = document.querySelector('#filterCompleted')
+let clearCompletedButton = document.querySelector('#clearCompleted')
+let displayFilters = document.querySelectorAll('.filterText')
 
-class TodoList {
-    constructor() {
-        this.items = []
-        this.container = document.querySelector('#todoListItems')
-        this.form = document.querySelector('form')
-        this.input = document.querySelector('form input')
-        this.crosses = document.querySelectorAll('.listItemCross')
-        this.checkboxes = document.querySelectorAll('.checkbox')
-        this.counter = document.querySelector('#listItemCount')
-    }
+refreshTodoArray()
 
-    displayAllItems() {
-        this.container.innerHTML = ''
-        this.items.forEach((todo) => {
-            this.container.innerHTML += todo.generateToDoHTML()
-        })
-    }
+function getTodos() {
+    return JSON.parse(localStorage.getItem('todos'))
+}
 
-    refreshToDoList() {
-        this.crosses = document.querySelectorAll('.listItemCross')
-        this.checkboxes = document.querySelectorAll('.checkbox')
+function saveTodos(todoItems) {
+    localStorage.setItem('todos', JSON.stringify(todoItems))
+}
 
-        this.crosses.forEach((el) => {
-            el.addEventListener('click', (e) => {
-                let index = e.target.parentElement.dataset.id
-                this.deleteTodo(index)
-                this.displayAllItems()
-                this.refreshToDoList()
-            })
-        })
+async function displayTodoArray() {
+    const todoArray = getTodos()
+    const templateData = await fetch('todo_list.hbs')
+    const templateText = await templateData.text()
+    const template = await Handlebars.compile(templateText)
+    const displayTodos = filterTodoItems(checkActiveFilter(), todoArray)
+    todoListDisplay.innerHTML = await template({todos: displayTodos})
+}
 
-        this.checkboxes.forEach((el) => {
-            el.addEventListener('click', (e) => {
-                let index = e.target.parentElement.dataset.id
-                this.toggleChecked(index)
-                this.displayAllItems()
-                this.refreshToDoList()
-            })
-        })
+function checkActiveFilter() {
+    let result = ''
+    displayFilters.forEach((el) => {
+        if (el.classList.value === 'filterText activeFilter') {
+            result = el.innerText
+        }
+    })
+    return result
+}
 
-        this.counter.textContent = this.items.length + ' item/s left'
-    }
-
-    deleteTodo(index) {
-        this.items.forEach((todo) => {
-            if (todo.id == index) {
-                let id = this.items.indexOf(todo)
-                this.items.splice(id, 1)
-            }
-        })
-    }
-
-    toggleChecked(index) {
-        this.items.forEach((todo) => {
-            if (todo.id == index) {
-                let id = this.items.indexOf(todo)
-                this.items[id].checked = !this.items[id].checked
-            }
-        })
-    }
-
-    displayActiveItems() {
-        this.container.innerHTML = ''
-        let items = this.items.filter(todo => !todo.checked)
-        items.forEach((todo) => {
-            this.container.innerHTML += todo.generateToDoHTML()
-        })
-    }
-
-    displayCompletedItems() {
-        this.container.innerHTML = ''
-        let items = this.items.filter(todo => todo.checked)
-        items.forEach((todo) => {
-            this.container.innerHTML += todo.generateToDoHTML()
-        })
+function filterTodoItems(activeFilterString, todos) {
+    switch (activeFilterString) {
+        case 'All':
+            return todos
+        case 'Active':
+            return todos.filter((todo) => !todo.isCompleted)
+        case 'Completed':
+            return todos.filter((todo) => todo.isCompleted)
     }
 }
 
-class TodoItem {
-    constructor(todo) {
-        this.id = TodoItem.generateId()
-        this.todoString = todo
-        this.checked = false
-    }
+function updateTodoCounter() {
+    let todoCountDisplay = document.querySelector('#listItemCount')
+    let todos = getTodos()
+    todoCountDisplay.textContent = todos.length + ' item/s left'
+}
 
-    static generateId() {
-        if (!this.latestId) this.latestId = 1
-        else this.latestId++
-        return this.latestId
-    }
+function markTodoAsChecked(event) {
+    const todoId = Number(event.target.parentElement.dataset.id)
+    const todos = getTodos()
+    todos.forEach((el) => {
+        if (el.id === todoId) {
+            el.isCompleted = !el.isCompleted
+            saveTodos(todos)
+        }
+    })
+    refreshTodoArray()
+}
 
-    generateToDoHTML() {
-        let output = '<div class="todoListItem'
-        if (this.checked) {
-            output += ' checked'
+function crossClickDeleteTodo(event) {
+    const todoId = Number(event.target.parentElement.dataset.id)
+    const todos = getTodos()
+    todos.forEach((el) => {
+        if (el.id === todoId) {
+            todos.splice(todos.indexOf(el), 1)
+            saveTodos(todos)
         }
-        output += '" data-id="'
-        output += this.id
-        output += '">'
-        output += '<div class="checkbox'
-        if (this.checked) {
-            output += ' checked'
+    })
+    refreshTodoArray()
+}
+
+function addTodoEventListeners() {
+    let todoCheckboxes = document.querySelectorAll('.checkbox')
+    let todoDeleteCrosses = document.querySelectorAll('.listItemCross')
+    todoCheckboxes.forEach((el) => {
+        if (el !== todoCheckboxes[0]) {
+            el.addEventListener('click', markTodoAsChecked)
         }
-        output += '">'
-        output += '</div><p class="listItemText'
-        if (this.checked) {
-            output += ' checked'
-        }
-        output += '">'
-        output += this.todoString
-        output += '</p><img class="listItemCross'
-        if (this.checked) {
-            output += ' checked'
-        }
-        output +='" src="images/icon-cross.svg" alt="Delete list item"/>'
-        output += '</div>'
-        return(output)
-    }
+    })
+    todoDeleteCrosses.forEach((el) => {
+        el.addEventListener('click', crossClickDeleteTodo)
+    })
+}
+
+function clearActiveFilter() {
+    displayFilters.forEach((el) => {
+        el.classList.remove('activeFilter')
+    })
+}
+
+function refreshTodoArray() {
+    updateTodoCounter()
+    displayTodoArray()
+        .then(() => addTodoEventListeners())
 }
 
 function toggleTheme() {
@@ -131,44 +106,43 @@ function toggleTheme() {
     } else themeStyleSheet.href = 'http://localhost:1234/todo-app-main/styles/dark_theme.css'
 }
 
-let todoList = new TodoList()
-
-todoList.form.addEventListener('submit', (e) => {
-    e.preventDefault()
-    todoList.items.push(new TodoItem(todoList.input.value))
-    todoList.input.value = ''
-    todoList.container.innerHTML += todoList.items[todoList.items.length - 1].generateToDoHTML()
-    todoList.refreshToDoList()
-})
-
 themeToggleButton.addEventListener('click', toggleTheme)
 
-clearButton.addEventListener('click', () => {
-    todoList.items = todoList.items.filter(el => !el.checked === true)
-    todoList.displayAllItems()
-    todoList.refreshToDoList()
+form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    let todoInput = document.querySelector('#todoInput')
+    let inputValue = todoInput.value
+    if (inputValue !== '' && inputValue !== null) {
+        let todos = getTodos()
+        let todo = {
+            id: new Date().getTime(),
+            name: inputValue,
+            isCompleted: false
+        }
+        todos.push(todo)
+        saveTodos(todos)
+    }
+    form.reset()
+    refreshTodoArray()
+    todoInput.focus()
 })
 
-allFilterButton.addEventListener('click', () => {
-    allFilterButton.classList.add('activeFilter')
-    activeFilterButton.classList.remove('activeFilter')
-    completedFilterButton.classList.remove('activeFilter')
-    todoList.displayAllItems()
-    todoList.refreshToDoList()
+clearCompletedButton.addEventListener('click', (e) => {
+    let todos = getTodos()
+    saveTodos(todos.filter(el => !el.isCompleted))
+    refreshTodoArray()
 })
 
-activeFilterButton.addEventListener('click', () => {
-    allFilterButton.classList.remove('activeFilter')
-    activeFilterButton.classList.add('activeFilter')
-    completedFilterButton.classList.remove('activeFilter')
-    todoList.displayActiveItems()
-    todoList.refreshToDoList()
+displayFilters.forEach((el) => {
+    el.addEventListener('click', (e) => {
+        clearActiveFilter()
+        e.target.classList.add('activeFilter')
+        refreshTodoArray()
+    })
 })
 
-completedFilterButton.addEventListener('click', () => {
-    allFilterButton.classList.remove('activeFilter')
-    activeFilterButton.classList.remove('activeFilter')
-    completedFilterButton.classList.add('activeFilter')
-    todoList.displayCompletedItems()
-    todoList.refreshToDoList()
-})
+
+
+
+
+
