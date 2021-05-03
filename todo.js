@@ -26,14 +26,31 @@ function addToDoEventListeners() {
                 todos.forEach((el) => {
                     if (el.id === todoId) {
                         el.isCompleted = !el.isCompleted
+                        saveTodos(todos)
                     }
-                    saveTodos(todos)
                 })
 
                 displayTodoArray(getTodos())
                     .then(() => addToDoEventListeners())
             })
         }
+    })
+
+    todoDeleteCrosses.forEach((el) => {
+        el.addEventListener('click', (e) => {
+            const todoId = Number(e.target.parentElement.dataset.id)
+            const todos = getTodos()
+
+            todos.forEach((el) => {
+                if (el.id === todoId) {
+                    todos.splice(todos.indexOf(el), 1)
+                    saveTodos(todos)
+                }
+            })
+
+            displayTodoArray(getTodos())
+                .then(() => addToDoEventListeners())
+        })
     })
 }
 
