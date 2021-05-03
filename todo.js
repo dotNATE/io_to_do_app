@@ -67,9 +67,7 @@ let themeToggleButton = document.querySelector('#toggleThemeButton')
 
 let todoItems = getTodos()
 
-if (!todoItems) {
-    todoItems = []
-} else {
+if (todoItems) {
     displayTodoArray(todoItems)
         .then(() => addToDoEventListeners())
 }
@@ -81,7 +79,7 @@ form.addEventListener('submit', (e) => {
 
     let todoInput = document.querySelector('#todoInput')
     let inputValue = todoInput.value
-    let todos = getTodos()
+    let todos = getTodos() ? getTodos() : []
 
     if (inputValue !== '' && inputValue !== null) {
 
