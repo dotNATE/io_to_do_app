@@ -1,13 +1,27 @@
 let form = document.querySelector('form')
 let todoListDisplay = document.querySelector('#todoListItems')
+let themeToggleButton = document.querySelector('#toggleThemeButton')
 
 let todoItems = { todos: JSON.parse(localStorage.getItem('todos')) }
 
-if (!todoItems.todos) {
-    todoItems = []
-} else {
-    displayTodoArray(todoItems)
+function displayTodoArray(todoArray) {
+    fetch('todo_list.hbs')
+        .then((data) => data.text())
+        .then((data) => {
+            const template = Handlebars.compile(data)
+            const html = template(todoArray)
+            todoListDisplay.innerHTML = html
+        })
 }
+
+function toggleTheme() {
+    let themeStyleSheet = document.querySelectorAll('link')[2]
+    if (themeStyleSheet.href.includes('dark')) {
+        themeStyleSheet.href = 'http://localhost:1234/todo-app-main/styles/light_theme.css'
+    } else themeStyleSheet.href = 'http://localhost:1234/todo-app-main/styles/dark_theme.css'
+}
+
+themeToggleButton.addEventListener('click', toggleTheme)
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -28,12 +42,8 @@ form.addEventListener('submit', (e) => {
     todoInput.focus()
 })
 
-function displayTodoArray(todoArray) {
-    fetch('todo_list.hbs')
-        .then((data) => data.text())
-        .then((data) => {
-            const template = Handlebars.compile(data)
-            const html = template(todoArray)
-            todoListDisplay.innerHTML = html
-        })
+if (!todoItems.todos) {
+    todoItems = []
+} else {
+    displayTodoArray(todoItems)
 }
