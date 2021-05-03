@@ -80,30 +80,28 @@ form.addEventListener('submit', (e) => {
     e.preventDefault()
 
     let todoInput = document.querySelector('#todoInput')
+    let inputValue = todoInput.value
+    let todos = getTodos()
 
-    if (todoInput.value !== '' && todoInput.value !== null) {
+    if (inputValue !== '' && inputValue !== null) {
 
         let todo = {
             id: new Date().getTime(),
-            name: todoInput.value,
+            name: inputValue,
             isCompleted: false
         }
 
-        todoItems.push(todo)
-        saveTodos(todoItems)
-        form.reset()
+        todos.push(todo)
+        saveTodos(todos)
     }
-    displayTodoArray(todoItems)
+
+    form.reset()
+
+    displayTodoArray(todos)
         .then(() => addToDoEventListeners())
+
     todoInput.focus()
 })
-
-
-
-
-
-
-
 
 
 
