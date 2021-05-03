@@ -10,10 +10,32 @@ async function displayTodoArray(todoArray) {
     const templateData = await fetch('todo_list.hbs')
     const templateText = await templateData.text()
     const template = await Handlebars.compile(templateText)
-    todoListDisplay.innerHTML = await template({todos: todoArray})
+    let displayTodos = filterTodoItems(checkActiveFilter(), todoArray)
+    todoListDisplay.innerHTML = await template({todos: displayTodos})
 }
 
-function addToDoEventListeners() {
+function checkActiveFilter() {
+    let result = ''
+    displayFilters.forEach((el) => {
+        if (el.classList.value === 'filterText activeFilter') {
+            result = el.innerText
+        }
+    })
+    return result
+}
+
+function filterTodoItems(activeFilterString, todos) {
+    switch (activeFilterString) {
+        case 'All':
+            return todos
+        case 'Active':
+            return todos.filter((todo) => !todo.isCompleted)
+        case 'Completed':
+            return todos.filter((todo) => todo.isCompleted)
+    }
+}
+
+function addTodoEventListeners() {
     let todoCheckboxes = document.querySelectorAll('.checkbox')
     let todoDeleteCrosses = document.querySelectorAll('.listItemCross')
 
@@ -31,7 +53,7 @@ function addToDoEventListeners() {
                 })
 
                 displayTodoArray(getTodos())
-                    .then(() => addToDoEventListeners())
+                    .then(() => addTodoEventListeners())
             })
         }
     })
@@ -49,8 +71,14 @@ function addToDoEventListeners() {
             })
 
             displayTodoArray(getTodos())
-                .then(() => addToDoEventListeners())
+                .then(() => addTodoEventListeners())
         })
+    })
+}
+
+function clearActiveFilter() {
+    displayFilters.forEach((el) => {
+        el.classList.remove('activeFilter')
     })
 }
 
@@ -64,12 +92,13 @@ function toggleTheme() {
 let form = document.querySelector('form')
 let todoListDisplay = document.querySelector('#todoListItems')
 let themeToggleButton = document.querySelector('#toggleThemeButton')
+let displayFilters = document.querySelectorAll('.filterText')
 
 let todoItems = getTodos()
 
 if (todoItems) {
     displayTodoArray(todoItems)
-        .then(() => addToDoEventListeners())
+        .then(() => addTodoEventListeners())
 }
 
 themeToggleButton.addEventListener('click', toggleTheme)
@@ -96,15 +125,19 @@ form.addEventListener('submit', (e) => {
     form.reset()
 
     displayTodoArray(todos)
-        .then(() => addToDoEventListeners())
+        .then(() => addTodoEventListeners())
 
     todoInput.focus()
 })
 
-
-
-
-
+displayFilters.forEach((el) => {
+    el.addEventListener('click', (e) => {
+        clearActiveFilter()
+        e.target.classList.add('activeFilter')
+        displayTodoArray(getTodos())
+            .then(() => addTodoEventListeners())
+    })
+})
 
 
 
