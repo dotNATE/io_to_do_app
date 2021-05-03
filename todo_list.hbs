@@ -1,5 +1,5 @@
 {{#each todos}}
-<div class="todoListItem{{#if isCompleted}} checked{{/if}}">
+<div class="todoListItem{{#if isCompleted}} checked{{/if}}" data-id="{{id}}">
     <div class="checkbox{{#if isCompleted}} checked{{/if}} " ></div>
     <p class="listItemText{{#if isCompleted}} checked{{/if}}">
         {{name}}

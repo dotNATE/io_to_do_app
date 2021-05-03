@@ -1,5 +1,9 @@
-function getTodosFromLocalStorage() {
+function getTodos() {
     return JSON.parse(localStorage.getItem('todos'))
+}
+
+function saveTodos(todoItems) {
+    localStorage.setItem('todos', JSON.stringify(todoItems))
 }
 
 async function displayTodoArray(todoArray) {
@@ -13,8 +17,24 @@ function addToDoEventListeners() {
     let todoCheckboxes = document.querySelectorAll('.checkbox')
     let todoDeleteCrosses = document.querySelectorAll('.listItemCross')
 
-    console.log(todoCheckboxes)
-    console.log(todoDeleteCrosses)
+    todoCheckboxes.forEach((el) => {
+        if (el !== todoCheckboxes[0]) {
+            el.addEventListener('click', (e) => {
+                const todoId = Number(e.target.parentElement.dataset.id)
+                const todos = getTodos()
+
+                todos.forEach((el) => {
+                    if (el.id === todoId) {
+                        el.isCompleted = !el.isCompleted
+                    }
+                    saveTodos(todos)
+                })
+
+                displayTodoArray(getTodos())
+                    .then(() => addToDoEventListeners())
+            })
+        }
+    })
 }
 
 function toggleTheme() {
@@ -28,7 +48,7 @@ let form = document.querySelector('form')
 let todoListDisplay = document.querySelector('#todoListItems')
 let themeToggleButton = document.querySelector('#toggleThemeButton')
 
-let todoItems = getTodosFromLocalStorage()
+let todoItems = getTodos()
 
 if (!todoItems) {
     todoItems = []
@@ -53,7 +73,7 @@ form.addEventListener('submit', (e) => {
         }
 
         todoItems.push(todo)
-        localStorage.setItem('todos', JSON.stringify(todoItems))
+        saveTodos(todoItems)
         form.reset()
     }
     displayTodoArray(todoItems)
