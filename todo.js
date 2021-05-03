@@ -59,8 +59,7 @@ function addTodoEventListeners() {
                     }
                 })
 
-                displayTodoArray(getTodos())
-                    .then(() => addTodoEventListeners())
+                refreshTodoArray()
             })
         }
     })
@@ -77,8 +76,7 @@ function addTodoEventListeners() {
                 }
             })
 
-            displayTodoArray(getTodos())
-                .then(() => addTodoEventListeners())
+            refreshTodoArray()
         })
     })
 }
@@ -87,6 +85,11 @@ function clearActiveFilter() {
     displayFilters.forEach((el) => {
         el.classList.remove('activeFilter')
     })
+}
+
+function refreshTodoArray() {
+    displayTodoArray(getTodos())
+        .then(() => addTodoEventListeners())
 }
 
 function toggleTheme() {
@@ -99,6 +102,7 @@ function toggleTheme() {
 let form = document.querySelector('form')
 let todoListDisplay = document.querySelector('#todoListItems')
 let themeToggleButton = document.querySelector('#toggleThemeButton')
+let clearCompletedButton = document.querySelector('#clearCompleted')
 let displayFilters = document.querySelectorAll('.filterText')
 
 let todoItems = getTodos()
@@ -115,9 +119,10 @@ form.addEventListener('submit', (e) => {
 
     let todoInput = document.querySelector('#todoInput')
     let inputValue = todoInput.value
-    let todos = getTodos() ? getTodos() : []
 
     if (inputValue !== '' && inputValue !== null) {
+
+        let todos = getTodos()
 
         let todo = {
             id: new Date().getTime(),
@@ -131,18 +136,22 @@ form.addEventListener('submit', (e) => {
 
     form.reset()
 
-    displayTodoArray(todos)
-        .then(() => addTodoEventListeners())
+    refreshTodoArray()
 
     todoInput.focus()
+})
+
+clearCompletedButton.addEventListener('click', (e) => {
+    let todos = getTodos()
+    saveTodos(todos.filter(el => !el.isCompleted))
+    refreshTodoArray()
 })
 
 displayFilters.forEach((el) => {
     el.addEventListener('click', (e) => {
         clearActiveFilter()
         e.target.classList.add('activeFilter')
-        displayTodoArray(getTodos())
-            .then(() => addTodoEventListeners())
+        refreshTodoArray()
     })
 })
 
