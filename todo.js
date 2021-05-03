@@ -10,7 +10,8 @@ async function displayTodoArray(todoArray) {
     const templateData = await fetch('todo_list.hbs')
     const templateText = await templateData.text()
     const template = await Handlebars.compile(templateText)
-    let displayTodos = filterTodoItems(checkActiveFilter(), todoArray)
+    const displayTodos = filterTodoItems(checkActiveFilter(), todoArray)
+    updateTodoCounter()
     todoListDisplay.innerHTML = await template({todos: displayTodos})
 }
 
@@ -33,6 +34,12 @@ function filterTodoItems(activeFilterString, todos) {
         case 'Completed':
             return todos.filter((todo) => todo.isCompleted)
     }
+}
+
+function updateTodoCounter() {
+    let todoCountDisplay = document.querySelector('#listItemCount')
+    let todos = getTodos()
+    todoCountDisplay.textContent = todos.length + ' item/s left'
 }
 
 function addTodoEventListeners() {
