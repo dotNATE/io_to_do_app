@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
   <script defer src="todo.js"></script>
   <link rel="stylesheet" href="styles/normalize.css">
   <link rel="stylesheet" href="styles/dark_theme.css">
@@ -19,9 +20,7 @@
     <div class="checkbox"></div><input id="todoInput" type="text" placeholder="Create a new todo...">
   </form>
   <section class="container" id="todoList">
-    <div id="todoListItems">
-
-    </div>
+    <div id="todoListItems"></div>
     <div id="todoListInfo">
       <p id="listItemCount">0 item/s left</p>
       <p id="clearCompleted">Clear Completed</p>

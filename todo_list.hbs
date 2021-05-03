@@ -1,0 +1,9 @@
+{{#each todos}}
+<div class="todoListItem{{#if isCompleted}} checked{{/if}}">
+    <div class="checkbox{{#if isCompleted}} checked{{/if}}" ></div>
+    <p class="listItemText{{#if isCompleted}} checked{{/if}}">
+        {{name}}
+    </p>
+    <img class="listItemCross" src="images/icon-cross.svg" alt="Delete list item"/>
+</div>
+{{/each}}
