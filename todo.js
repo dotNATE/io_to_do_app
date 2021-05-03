@@ -6,12 +6,12 @@ function saveTodos(todoItems) {
     localStorage.setItem('todos', JSON.stringify(todoItems))
 }
 
-async function displayTodoArray(todoArray) {
+async function displayTodoArray() {
+    const todoArray = getTodos()
     const templateData = await fetch('todo_list.hbs')
     const templateText = await templateData.text()
     const template = await Handlebars.compile(templateText)
     const displayTodos = filterTodoItems(checkActiveFilter(), todoArray)
-    updateTodoCounter()
     todoListDisplay.innerHTML = await template({todos: displayTodos})
 }
 
@@ -42,42 +42,40 @@ function updateTodoCounter() {
     todoCountDisplay.textContent = todos.length + ' item/s left'
 }
 
+function markTodoAsChecked(event) {
+    const todoId = Number(event.target.parentElement.dataset.id)
+    const todos = getTodos()
+    todos.forEach((el) => {
+        if (el.id === todoId) {
+            el.isCompleted = !el.isCompleted
+            saveTodos(todos)
+        }
+    })
+    refreshTodoArray()
+}
+
+function crossClickDeleteTodo(event) {
+    const todoId = Number(event.target.parentElement.dataset.id)
+    const todos = getTodos()
+    todos.forEach((el) => {
+        if (el.id === todoId) {
+            todos.splice(todos.indexOf(el), 1)
+            saveTodos(todos)
+        }
+    })
+    refreshTodoArray()
+}
+
 function addTodoEventListeners() {
     let todoCheckboxes = document.querySelectorAll('.checkbox')
     let todoDeleteCrosses = document.querySelectorAll('.listItemCross')
-
     todoCheckboxes.forEach((el) => {
         if (el !== todoCheckboxes[0]) {
-            el.addEventListener('click', (e) => {
-                const todoId = Number(e.target.parentElement.dataset.id)
-                const todos = getTodos()
-
-                todos.forEach((el) => {
-                    if (el.id === todoId) {
-                        el.isCompleted = !el.isCompleted
-                        saveTodos(todos)
-                    }
-                })
-
-                refreshTodoArray()
-            })
+            el.addEventListener('click', markTodoAsChecked)
         }
     })
-
     todoDeleteCrosses.forEach((el) => {
-        el.addEventListener('click', (e) => {
-            const todoId = Number(e.target.parentElement.dataset.id)
-            const todos = getTodos()
-
-            todos.forEach((el) => {
-                if (el.id === todoId) {
-                    todos.splice(todos.indexOf(el), 1)
-                    saveTodos(todos)
-                }
-            })
-
-            refreshTodoArray()
-        })
+        el.addEventListener('click', crossClickDeleteTodo)
     })
 }
 
@@ -88,7 +86,8 @@ function clearActiveFilter() {
 }
 
 function refreshTodoArray() {
-    displayTodoArray(getTodos())
+    updateTodoCounter()
+    displayTodoArray()
         .then(() => addTodoEventListeners())
 }
 
@@ -105,39 +104,26 @@ let themeToggleButton = document.querySelector('#toggleThemeButton')
 let clearCompletedButton = document.querySelector('#clearCompleted')
 let displayFilters = document.querySelectorAll('.filterText')
 
-let todoItems = getTodos()
-
-if (todoItems) {
-    displayTodoArray(todoItems)
-        .then(() => addTodoEventListeners())
-}
+refreshTodoArray()
 
 themeToggleButton.addEventListener('click', toggleTheme)
 
 form.addEventListener('submit', (e) => {
     e.preventDefault()
-
     let todoInput = document.querySelector('#todoInput')
     let inputValue = todoInput.value
-
     if (inputValue !== '' && inputValue !== null) {
-
         let todos = getTodos()
-
         let todo = {
             id: new Date().getTime(),
             name: inputValue,
             isCompleted: false
         }
-
         todos.push(todo)
         saveTodos(todos)
     }
-
     form.reset()
-
     refreshTodoArray()
-
     todoInput.focus()
 })
 
