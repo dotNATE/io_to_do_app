@@ -4,7 +4,7 @@ let themeToggleButton = document.querySelector('#toggleThemeButton')
 let clearCompletedButton = document.querySelector('#clearCompleted')
 let displayFilters = document.querySelectorAll('.filterText')
 
-refreshTodoArray()
+getTodos() ? refreshTodoArray() : localStorage.setItem('todos', JSON.stringify([]))
 
 function getTodos() {
     return JSON.parse(localStorage.getItem('todos'))
@@ -47,7 +47,7 @@ function filterTodoItems(activeFilterString, todos) {
 function updateTodoCounter() {
     let todoCountDisplay = document.querySelector('#listItemCount')
     let todos = getTodos()
-    todoCountDisplay.textContent = todos.length + ' item/s left'
+    todos ? todoCountDisplay.textContent = todos.length + ' item/s left' : '0 items left'
 }
 
 function markTodoAsChecked(event) {
