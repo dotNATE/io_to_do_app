@@ -4,9 +4,18 @@ let themeToggleButton = document.querySelector('#toggleThemeButton')
 let clearCompletedButton = document.querySelector('#clearCompleted')
 let displayFilters = document.querySelectorAll('.filterText')
 
-getTodos() ? refreshTodoArray() : localStorage.setItem('todos', JSON.stringify([]))
+refreshTodoArray()
 
 function getTodos() {
+    try {
+        JSON.parse(localStorage.getItem('todos'))
+    } catch {
+        saveTodos([])
+    }
+    let todos = JSON.parse(localStorage.getItem('todos'))
+    if (todos === null) {
+        saveTodos([])
+    }
     return JSON.parse(localStorage.getItem('todos'))
 }
 
