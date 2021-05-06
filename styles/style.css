@@ -142,7 +142,7 @@ footer p {
     text-align: center;
 }
 
-#toggleThemeButton,
+#toggleThemeButton:hover,
 .checkbox:hover,
 .listItemCross:hover,
 .filterText:hover,
