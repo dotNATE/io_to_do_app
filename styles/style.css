@@ -94,7 +94,7 @@ form input:focus {
 .todoListItem {
     display: grid;
     grid-template-columns: 1fr 6fr 1fr;
-    height: 2.75rem;
+    min-height: 2.75rem;
     padding: .8rem 0.35rem;
     font-size: .7rem;
 }
@@ -144,7 +144,6 @@ footer p {
 
 #toggleThemeButton,
 .checkbox:hover,
-.listItemText:hover,
 .listItemCross:hover,
 .filterText:hover,
 #clearCompleted:hover {
