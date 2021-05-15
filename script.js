@@ -149,9 +149,3 @@ displayFilters.forEach((el) => {
         refreshTodoArray()
     })
 })
-
-
-
-
-
-

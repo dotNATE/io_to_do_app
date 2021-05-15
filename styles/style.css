@@ -37,8 +37,11 @@ header span {
 }
 
 #toggleThemeButton {
-    height: 30px;
+    height: 1.5rem;
+    width: 1.5rem;
     margin: auto 0;
+    border: none;
+    background-size: contain;
 }
 
 .container {

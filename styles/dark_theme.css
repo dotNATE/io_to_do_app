@@ -14,7 +14,7 @@ body {
 }
 
 #toggleThemeButton {
-    content: url("../images/icon-sun.svg")
+    background: url("../images/icon-sun.svg") no-repeat center;
 }
 
 .container {

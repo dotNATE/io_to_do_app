@@ -12,7 +12,7 @@ body {
 }
 
 #toggleThemeButton {
-    content: url("../images/icon-moon.svg")
+    background: url("../images/icon-moon.svg") no-repeat center;
 }
 
 .container {
