@@ -101,6 +101,7 @@ form input:focus {
     padding: .8rem 0.35rem;
     font-size: .7rem;
     cursor: move;
+    border-radius: 5px;
 }
 
 .todoListItem.checked {

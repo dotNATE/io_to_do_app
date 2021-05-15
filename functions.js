@@ -129,12 +129,19 @@ function handleDragLeave(e) {
 
 function handleDrop(e) {
     let todos = getTodos()
-    let index = todos.findIndex(el => el.id === dragSrcEl)
-    let index2 = todos.findIndex(el => el.id === Number(e.target.dataset.id))
+    let srcIndex = todos.findIndex(el => el.id === dragSrcEl)
+    let draggedTodo = todos[srcIndex]
+    let destId = e.target.dataset.id
+    let destIndex = todos.findIndex(el => el.id === Number(destId))
 
-    let temp = todos[index]
-    todos[index] = todos[index2]
-    todos[index2] = temp
+    if (destIndex === srcIndex - 1) {
+        todos[srcIndex] = todos[destIndex]
+        todos[destIndex] = draggedTodo
+    } else if (srcIndex !== destIndex) {
+        todos.splice(srcIndex, 1)
+        destIndex = todos.findIndex(el => el.id === Number(destId))
+        todos.splice(destIndex + 1, 0, draggedTodo)
+    }
 
     saveTodos(todos)
 
