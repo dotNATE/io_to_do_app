@@ -1,11 +1,3 @@
-let form = document.querySelector('form')
-let todoListDisplay = document.querySelector('#todoListItems')
-let themeToggleButton = document.querySelector('#toggleThemeButton')
-let clearCompletedButton = document.querySelector('#clearCompleted')
-let displayFilters = document.querySelectorAll('.filterText')
-
-refreshTodoArray()
-
 function getTodos() {
     try {
         JSON.parse(localStorage.getItem('todos'))
@@ -105,7 +97,7 @@ function clearActiveFilter() {
 function refreshTodoArray() {
     updateTodoCounter()
     displayTodoArray()
-        .then(() => addTodoEventListeners())
+        .then(() => refreshEventListeners())
 }
 
 function toggleTheme() {
@@ -115,37 +107,62 @@ function toggleTheme() {
     } else themeStyleSheet.href = 'http://localhost:1234/todo-app-main/styles/dark_theme.css'
 }
 
-themeToggleButton.addEventListener('click', toggleTheme)
+function handleDragStart(e) {
+    this.style.opacity = '0.4'
 
-form.addEventListener('submit', (e) => {
+    dragSrcEl = Number(this.dataset.id)
+}
+
+function handleDragOver(e) {
     e.preventDefault()
-    let todoInput = document.querySelector('#todoInput')
-    let inputValue = todoInput.value
-    if (inputValue !== '' && inputValue !== null) {
-        let todos = getTodos()
-        let todo = {
-            id: new Date().getTime(),
-            name: inputValue,
-            isCompleted: false
-        }
-        todos.push(todo)
-        saveTodos(todos)
+}
+
+function handleDragEnter(e) {
+    if (dragSrcEl !== this.dataset.id) {
+        this.classList.add('over')
     }
-    form.reset()
-    refreshTodoArray()
-    todoInput.focus()
-})
+}
 
-clearCompletedButton.addEventListener('click', (e) => {
+function handleDragLeave(e) {
+    this.classList.remove('over')
+}
+
+function handleDrop(e) {
     let todos = getTodos()
-    saveTodos(todos.filter(el => !el.isCompleted))
-    refreshTodoArray()
-})
+    let index = todos.findIndex(el => el.id === dragSrcEl)
+    let index2 = todos.findIndex(el => el.id === Number(e.target.dataset.id))
 
-displayFilters.forEach((el) => {
-    el.addEventListener('click', (e) => {
-        clearActiveFilter()
-        e.target.classList.add('activeFilter')
-        refreshTodoArray()
+    let temp = todos[index]
+    todos[index] = todos[index2]
+    todos[index2] = temp
+
+    saveTodos(todos)
+
+    refreshTodoArray()
+}
+
+function handleDragEnd(e) {
+    let todoItems = document.querySelectorAll('.todoListItem')
+    this.style.opacity = '1'
+
+    todoItems.forEach((el) => {
+        el.classList.remove('over')
     })
-})
+}
+
+function addDragEventListeners() {
+    let todoItems = document.querySelectorAll('.todoListItem')
+    todoItems.forEach((el) => {
+        el.addEventListener('dragstart', handleDragStart)
+        el.addEventListener('dragover', handleDragOver)
+        el.addEventListener('dragenter', handleDragEnter)
+        el.addEventListener('dragleave', handleDragLeave)
+        el.addEventListener('drop', handleDrop)
+        el.addEventListener('dragend', handleDragEnd)
+    })
+}
+
+function refreshEventListeners() {
+    addTodoEventListeners()
+    addDragEventListeners()
+}

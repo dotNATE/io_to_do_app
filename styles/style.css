@@ -100,10 +100,20 @@ form input:focus {
     min-height: 2.75rem;
     padding: .8rem 0.35rem;
     font-size: .7rem;
+    cursor: move;
 }
 
 .todoListItem.checked {
     text-decoration: line-through;
+}
+
+.over {
+    border: 3px dotted white;
+}
+
+.over .checkbox,
+.over .listItemCross {
+    pointer-events: none;
 }
 
 .listItemCross {
@@ -117,6 +127,7 @@ form input:focus {
     width: fit-content;
     margin: auto 0;
     padding-top: 2px;
+    pointer-events: none;
 }
 
 #listFilter {
