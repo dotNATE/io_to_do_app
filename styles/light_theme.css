@@ -35,6 +35,10 @@ footer p {
     color: var(--lThemeDarkGrayBlue);
 }
 
+#todoListItems {
+    background-color: var(--lThemeVLightGrayBlue);
+}
+
 .todoListItem {
     background-color: var(--lThemeVLightGray);
     border-bottom: 1px solid var(--lThemeLightGrayBlue);

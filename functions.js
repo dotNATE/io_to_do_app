@@ -118,7 +118,7 @@ function handleDragOver(e) {
 }
 
 function handleDragEnter(e) {
-    if (dragSrcEl !== this.dataset.id) {
+    if (dragSrcEl !== Number(this.dataset.id)) {
         this.classList.add('over')
     }
 }

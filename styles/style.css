@@ -94,6 +94,10 @@ form input:focus {
     height: 2.5rem;
 }
 
+#todoListItems {
+    border-radius: 5px;
+}
+
 .todoListItem {
     display: grid;
     grid-template-columns: 1fr 6fr 1fr;
@@ -109,7 +113,11 @@ form input:focus {
 }
 
 .over {
-    border: 3px dotted white;
+    animation-name: hoverOver;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
 }
 
 .over .checkbox,
@@ -192,5 +200,14 @@ footer p {
     .container {
         width: 60%;
 
+    }
+}
+
+@keyframes hoverOver {
+    from {
+        transform: translateY(0%);
+    }
+    to {
+        transform: translateY(-18%);
     }
 }
